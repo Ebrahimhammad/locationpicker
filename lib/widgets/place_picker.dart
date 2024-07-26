@@ -131,14 +131,17 @@ class PlacePickerState extends State<PlacePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+
+      canPop:false,
+
+      onPopInvoked: (bool didPop)  {
         if (Platform.isAndroid) {
           locationResult = null;
           _delayedPop();
-          return Future.value(false);
+
         }  else  {
-          return Future.value(true);
+          Navigator.pop(context);
         }
       },
       child: Scaffold(
@@ -712,8 +715,8 @@ class PlacePickerState extends State<PlacePicker> {
   Future<bool> _delayedPop() async {
     Navigator.of(context, rootNavigator: true).push(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => WillPopScope(
-          onWillPop: () async => false,
+        pageBuilder: (_, __, ___) => PopScope(
+          canPop: false,
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Center(
