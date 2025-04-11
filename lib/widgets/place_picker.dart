@@ -189,7 +189,11 @@ class PlacePickerState extends State<PlacePicker> {
                       if (Platform.isAndroid) {
                         _delayedPop();
                       } else {
-                        Navigator.of(context).pop(this.locationResult);
+                        Future.delayed(Duration.zero, () {
+                          Navigator.of(context).pop(this.locationResult);
+                        });
+
+
                       }
                     }, widget.localizationItem!.tapToSelectLocation),
                     Divider(height: 8),
